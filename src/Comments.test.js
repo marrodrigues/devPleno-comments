@@ -1,14 +1,30 @@
 import React from 'react'
-import { render } from 'enzyme'
+import { shallow } from 'enzyme'
 
+import Comments from './Comments'
 import Comment from './Comment'
 
-it('should render text', () => {
-    const c = { comment: 'test'}
-    const wrapper = render(<Comment c={c}/>)
-    expect(wrapper.text()).toBe('Comentário: test')
-})
-it('should render empty', () => {
-    const wrapper = render(<Comment />)
-    expect(wrapper.text()).toBe('Comentário: vazio')
+describe('<Comments />', () => {
+    it('should render Comments', () => {
+        const comments = { 
+            a: { id:'a', comment: 'test'},
+            b: { id:'b', comment: 'test 2'}
+        }
+        const wrapper = shallow(<Comments comments={comments} />)
+
+        expect(wrapper.find(Comment).length).toBe(2)
+
+        expect(wrapper.find(Comment).get(0).props.c.comment).toBe(comments.a.comment)
+        expect(wrapper.find(Comment).get(1).props.c.comment).toBe(comments.b.comment)
+
+        expect(wrapper.find(Comment).get(0).key).toBe(comments.a.id)
+        expect(wrapper.find(Comment).get(1).key).toBe(comments.b.id)
+        
+    })
+    it('should work with no Comments', () => {
+        const comments = {}
+        const wrapper = shallow(<Comments commets={comments}/>)
+        
+        expect(wrapper.find(Comment).length).toBe(0)
+    })
 })
