@@ -5,7 +5,7 @@ import Comments from './Comments'
 import Comment from './Comment'
 
 describe('<Comments />', () => {
-    it('should render Comments', () => {
+    it('rederizando comentários', () => {
         const comments = { 
             a: { id:'a', comment: 'test'},
             b: { id:'b', comment: 'test 2'}
@@ -21,7 +21,7 @@ describe('<Comments />', () => {
         expect(wrapper.find(Comment).get(1).key).toBe(comments.b.id)
         
     })
-    it('should work with no Comments', () => {
+    it('executando sem comentários', () => {
         const comments = {}
         const wrapper = shallow(<Comments commets={comments}/>)
         

@@ -1,9 +1,22 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
-import App from './App'
+import { shallow } from 'enzyme'
 
-it('renders without crashing', () => {
-  const div = document.createElement('div')
-  ReactDOM.render(<App />, div)
-  ReactDOM.unmountComponentAtNode(div)
-});
+import App from './App'
+import Comments from './Comments'
+import NewComment from './NewComment'
+
+describe('<App />', () => {
+  it('renderizando sem quebrar', () => {
+      const database = {
+        ref: jest.fn()
+      }
+      database.ref.mockReturnValue({
+        on: jest.fn()
+      })
+      const wrapper = shallow(<App database={database} />)
+      expect(wrapper.find(Comments).length).toBe(1)
+      expect(wrapper.find(NewComment).length).toBe(1)
+      expect(wrapper.find('p').length).toBe(1)
+  });
+})
+
